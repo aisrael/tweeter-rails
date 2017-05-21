@@ -1,6 +1,6 @@
 production:
   clients:
     default:
-      database: tweeter_development
+      database: tweeter
       hosts:
-        - mongo:27017
+        - tweeter-mongodb-mongodb:27017

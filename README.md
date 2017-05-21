@@ -11,64 +11,61 @@ Alternatively, sign up for and used Google Cloud Platform and spin up a [Google 
 
 ### Install Helm
 
+```bash
+helm init
+```
+
 ## Deployment
+
+### Services
 
 #### Deploy MongoDB
 
-```
-$ kubectl create -f mongo.yaml
-```
+Using Helm
 
-Verify that the service and pods are created
-
-```
-$ kubectl get services -w
+```bash
+helm install --namespace tweeter --name tweeter-mongodb stable/mongodb
 ```
 
-##### Connect to MongoDB from host
+#### Deploy Redis
 
-```
-# Get the minikube VM IP address
-$ minikube ip
+Using Helm
 
-# Get the MongoDB minikube node port
-$ kubectl get service mongo -o 'jsonpath={.spec.ports[0].nodePort}'
-
-# Connect to MongoDB
-$ curl $(minikube ip):$(kubectl get service mongo -o 'jsonpath={.spec.ports[0].nodePort}')
+```bash
+helm install --namespace tweeter --name tweeter-redis \
+--set redisPassword=secretpassword stable/redis
 ```
 
-##### Connect to MongoDB from a new pod
+Verify that the services are running
 
 ```
-$ kubectl run -i -t --rm psql --image=postgres --restart=Never --command -- psql -h postgres -U postgres
+kubectl get services -w
+```
+
+## Tweeter
+
+#### Create Tweeter secrets
+
+```bash
+kubectl create -f tweeter-secrets.yaml
 ```
 
 #### Deploy Tweeter front-end
 
-```
-$ kubectl create -f frontend.yaml
+```bash
+kubectl create -f tweeter.yaml
 ```
 
 Wait for the pods to be `Running`
 
-```
-$ kubectl get pods -w
-```
-
-Take note of a pod id (we'll denote by `$POD_ID`)
-
-Execute Rails migrations
-
-```
-$ kubectl exec $POD_ID -- rake db:create
-$ kubectl exec $POD_ID -- rake db:migrate
+```bash
+kubectl get pods -w
 ```
 
 ##### Connect to the Tweeter front end
 
-```
-$ kubectl get services
+```bash
+kubectl get services
 ```
 
-Take note of the `tweeter-frontend` port, then visit `$(minikube ip)`:port.
+Take note of the `tweeter` port, then visit `$(minikube ip)`:port.

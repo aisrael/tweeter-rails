@@ -6,7 +6,4 @@ test:
 
 production:
   adapter: redis
-  url: redis://mymaster
-  sentinels:
-  - host: redis-sentinel
-    port: 26379
+  url: redis://:secretpassword@tweeter-redis-redis
