@@ -1,0 +1,24 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  namespace: tweeter
+  name: tweeter-producer
+  labels:
+    app: tweeter
+    component: producer
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: tweeter
+        component: producer
+    spec:
+      containers:
+      - name: tweeter-producer
+        image: aisrael/tweeter:0.1
+        command: [ "bundle", "exec", "ruby", "producer.rb" ]
+        env:
+        - name: TWEETER_API_URL
+          value: "http://tweeter"
