@@ -44,5 +44,5 @@ kubectl_set_image:
     - /^feature\/.*$/
   image: google/cloud-sdk
   script:
-    - kubectl --server="$KUBE_URL" --certificate-authority="$KUBE_CA_PEM_FILE" --token="$KUBE_TOKEN" --namespace="$KUBE_NAMESPACE" \
+    - kubectl --server="$KUBE_URL" --certificate-authority="$KUBE_CA_PEM_FILE" --token="$KUBE_TOKEN" --namespace="$KUBE_NAMESPACE"
       set image deployments/tweeter tweeter=registry.gitlab.com/aisrael/$CI_PROJECT_NAME:${CI_COMMIT_SHA:0:8}
