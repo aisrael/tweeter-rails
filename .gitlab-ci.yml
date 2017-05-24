@@ -1,6 +1,7 @@
 stages:
   - test
   - docker_build
+  - deploy
 
 rspec:
   stage: test
@@ -36,3 +37,11 @@ tag_tag:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
     - docker build -t registry.gitlab.com/aisrael/$CI_PROJECT_NAME:$CI_COMMIT_TAG .
     - docker push registry.gitlab.com/aisrael/$CI_PROJECT_NAME:$CI_COMMIT_TAG
+
+kubectl_set_image:
+  stage: deploy
+  except:
+    - /^feature\/.*$/
+  script:
+    - kubectl --server="$KUBE_URL" --certificate-authority="$KUBE_CA_PEM_FILE" --token="$KUBE_TOKEN" --namespace="$KUBE_NAMESPACE" \
+      set image deployments/tweeter tweeter=registry.gitlab.com/aisrael/$CI_PROJECT_NAME:${CI_COMMIT_SHA:0:8}
