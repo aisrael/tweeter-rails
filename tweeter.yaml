@@ -10,7 +10,7 @@ metadata:
 spec:
   # if your cluster supports it, change the following to "LoadBalancer" to
   # automatically create an external load-balanced IP for the frontend service.
-  type: NodePort
+  type: LoadBalancer
   ports:
   - port: 80 # the port that this service should serve on
     targetPort: 3000 # the port that this service should serve on
@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
       - name: tweeter
-        image: aisrael/tweeter:0.1
+        image: registry.gitlab.com/aisrael/tweeter:2b9408c6
         ports:
         - containerPort: 3000
         env:
