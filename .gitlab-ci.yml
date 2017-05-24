@@ -13,6 +13,7 @@ rubocop:
   stage: test
   image: ruby:2.4.1
   script:
+    - bundle install
     - rubocop -F
 
 build_image:
