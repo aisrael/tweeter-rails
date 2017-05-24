@@ -1,0 +1,11 @@
+AllCops:
+  DisplayCopNames: true
+Metrics/LineLength:
+  Max: 120
+Metrics/BlockLength:
+  ExcludedMethods:
+    - describe
+Metrics/AbcSize:
+  Enabled: false
+Metrics/MethodLength:
+  Enabled: false
