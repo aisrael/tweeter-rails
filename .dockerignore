@@ -19,6 +19,7 @@
 .yardoc
 Dockerfile
 build.rb
+build.sh
 coverage
 coverage.data
 doc
@@ -33,4 +34,3 @@ run.sh
 spec
 tmp
 vagrant.yml
-*.yaml

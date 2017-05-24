@@ -55,4 +55,6 @@ group :development do
   gem 'listen', '~> 3.0.5'
   gem 'web-console', '>= 3.3.0'
 
+  # Code coverage
+  gem 'simplecov', '~> 0.10.0', require: false
 end

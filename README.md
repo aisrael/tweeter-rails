@@ -1,6 +1,10 @@
 Tweeter
 ====
 
+[![build status](https://gitlab.com/aisrael/tweeter/badges/master/build.svg)](https://gitlab.com/aisrael/tweeter/commits/master)
+
+[![coverage report](https://gitlab.com/aisrael/tweeter/badges/master/coverage.svg)](https://gitlab.com/aisrael/tweeter/commits/master)
+
 Rails demo app for Kubernetes.
 
 ## Prerequisites
