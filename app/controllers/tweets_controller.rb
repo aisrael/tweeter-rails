@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
+# Where the action happens
 class TweetsController < ApplicationController
-
   # See https://stackoverflow.com/questions/9362910/rails-warning-cant-verify-csrf-token-authenticity-for-json-devise-requests/10049965#10049965
-  protect_from_forgery with: :null_session, if: Proc.new { |c| c.request.format == 'application/json' }
-  skip_before_action :verify_authenticity_token, if: Proc.new { |c| c.request.format == 'application/json' }
+  protect_from_forgery with: :null_session, if: proc { |c| c.request.format == 'application/json' }
+  skip_before_action :verify_authenticity_token, if: proc { |c| c.request.format == 'application/json' }
 
-  before_action :set_tweet, only: [:show, :edit, :update, :destroy]
+  before_action :set_tweet, only: %i[show edit update destroy]
 
   # GET /tweets
   # GET /tweets.json
@@ -55,13 +55,14 @@ class TweetsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_tweet
-      @tweet = Tweet.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def tweet_params
-      params.require(:tweet).permit(:handle, :content)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_tweet
+    @tweet = Tweet.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def tweet_params
+    params.require(:tweet).permit(:handle, :content)
+  end
 end
