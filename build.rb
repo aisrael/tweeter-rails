@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 require 'active_support/core_ext/string'
 
@@ -22,12 +23,12 @@ def sh(cmd)
 end
 
 if CURRENT_BRANCH == 'develop' || CURRENT_BRANCH == 'master'
-  IMAGE_TAG = ENV['IMAGE_TAG'] || GIT_COMMIT_SHA[0,8]
+  IMAGE_TAG = ENV['IMAGE_TAG'] || GIT_COMMIT_SHA[0, 8]
 
-  sh %{docker build -t "#{REPO_NAME}:latest" -t "#{REPO_NAME}:#{IMAGE_TAG}" "#{WORK_DIR}"}
+  sh %(docker build -t "#{REPO_NAME}:latest" -t "#{REPO_NAME}:#{IMAGE_TAG}" "#{WORK_DIR}")
 else
   # Note: on Linux, use `sed -r`
-  IMAGE_TAG = ENV['IMAGE_TAG'] || "#{BRANCH_SLUG}-#{GIT_COMMIT_SHA[0,8]}"
+  IMAGE_TAG = ENV['IMAGE_TAG'] || "#{BRANCH_SLUG}-#{GIT_COMMIT_SHA[0, 8]}"
 
-  sh %{docker build -t "#{REPO_NAME}:#{IMAGE_TAG}" "#{WORK_DIR}"}
+  sh %(docker build -t "#{REPO_NAME}:#{IMAGE_TAG}" "#{WORK_DIR}")
 end

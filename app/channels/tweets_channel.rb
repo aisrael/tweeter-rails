@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # app/channels/tweets_channel.rb
 class TweetsChannel < ApplicationCable::Channel
 
