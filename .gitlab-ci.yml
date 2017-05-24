@@ -46,7 +46,5 @@ deploy_to_kubernetes:
   environment:
     name: development
   script:
-    - echo kubectl --server="$KUBE_URL" --certificate-authority="$KUBE_CA_PEM_FILE" --token="$KUBE_TOKEN" --namespace="$KUBE_NAMESPACE"
-      set image deployments/tweeter tweeter=registry.gitlab.com/aisrael/$CI_PROJECT_NAME:${CI_COMMIT_SHA:0:8}
     - kubectl --server="$KUBE_URL" --certificate-authority="$KUBE_CA_PEM_FILE" --token="$KUBE_TOKEN" --namespace="$KUBE_NAMESPACE"
       set image deployments/tweeter tweeter=registry.gitlab.com/aisrael/$CI_PROJECT_NAME:${CI_COMMIT_SHA:0:8}
