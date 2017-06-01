@@ -44,3 +44,8 @@ spec:
             secretKeyRef:
               name: tweeter-secrets
               key: rails-secret-key-base
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 3000
+          initialDelaySeconds: 10
