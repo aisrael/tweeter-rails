@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: tweeter-producer
-        image: aisrael/tweeter:0.1
+        image:  registry.gitlab.com/aisrael/tweeter
         command: [ "bundle", "exec", "ruby", "producer.rb" ]
         env:
         - name: TWEETER_API_URL

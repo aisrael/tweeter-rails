@@ -33,12 +33,14 @@ spec:
     spec:
       containers:
       - name: tweeter
-        image: registry.gitlab.com/aisrael/tweeter:2b9408c6
+        image: registry.gitlab.com/aisrael/tweeter
         ports:
         - containerPort: 3000
         env:
         - name: RAILS_LOG_TO_STDOUT
           value: "true"
+        - name: REDIS_HOST_NAME
+          value: tweeter-redis-redis
         - name: SECRET_KEY_BASE
           valueFrom:
             secretKeyRef:
@@ -49,3 +51,4 @@ spec:
             path: /healthz
             port: 3000
           initialDelaySeconds: 10
+          periodSeconds: 61
