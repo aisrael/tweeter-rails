@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
       - name: tweeter
-        image: registry.gitlab.com/aisrael/tweeter
+        image: aisrael/tweeter
         ports:
         - containerPort: 3000
         env:
