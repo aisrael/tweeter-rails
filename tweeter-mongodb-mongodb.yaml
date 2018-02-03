@@ -1,0 +1,30 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  namespace: tweeter
+  name: tweeter-mongodb-mongodb
+  labels:
+    app: tweeter
+    db: mongo
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tweeter
+        db: mongo
+    spec:
+      containers:
+      - name: tweeter-mongodb-mongodb
+        image: mongo:3.4.4
+        ports:
+        - name: mongodb
+          containerPort: 27017
+      #   volumeMounts:
+      #   - name: data
+      #     mountPath: /data/db
+      # volumes:
+      # - name: data
+      #   persistentVolumeClaim:
+      #     claimName: tweeter-mongodb-mongodb

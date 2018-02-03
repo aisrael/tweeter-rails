@@ -10,10 +10,10 @@ metadata:
 spec:
   # if your cluster supports it, change the following to "LoadBalancer" to
   # automatically create an external load-balanced IP for the frontend service.
-  type: LoadBalancer
+  type: NodePort
   ports:
-  - port: 80 # the port that this service should serve on
-    targetPort: 3000 # the port that this service should serve on
+  - port: 80 # the port that the NodePort should serve on
+    targetPort: 3000 # the port that the service is serving on
   selector:
     app: tweeter
     tier: frontend
