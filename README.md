@@ -1,6 +1,10 @@
 Tweeter
 ====
 
+[![build status](https://gitlab.com/aisrael/tweeter/badges/develop/build.svg)](https://gitlab.com/aisrael/tweeter/commits/develop)
+
+[![coverage report](https://gitlab.com/aisrael/tweeter/badges/develop/coverage.svg)](https://gitlab.com/aisrael/tweeter/commits/develop)
+
 Rails demo app for Kubernetes.
 
 ## Prerequisites
@@ -16,6 +20,13 @@ helm init
 ```
 
 ## Deployment
+
+Create the `tweeter` namespace
+
+```
+kubectl create namespace tweeter
+kubectl config set-context $(kubectl config current-context) --namespace tweeter
+```
 
 ### Services
 

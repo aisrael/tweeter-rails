@@ -1,0 +1,46 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  namespace: tweeter
+  name: tweeter-redis-redis
+  labels:
+    app: tweeter
+    db: redis
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tweeter
+        db: redis
+    spec:
+      containers:
+      - name: tweeter-redis-redis
+        image: bitnami/redis:4.0.6-r1
+        ports:
+        - name: redis
+          containerPort: 6379
+        env:
+        - name: REDIS_PASSWORD
+          value: secretpassword
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: tweeter
+  name: tweeter-redis-redis
+  labels:
+    app: tweeter
+    tier: db
+spec:
+  type: ClusterIP
+  ports:
+  - port: 6379 # the port that the NodePort should serve on
+    targetPort: 6379 # the port that the service is serving on
+  selector:
+    app: tweeter
+    db: redis
+  ports:
+    - name: redis
+      port: 6379

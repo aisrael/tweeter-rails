@@ -12,8 +12,9 @@ spec:
   # automatically create an external load-balanced IP for the frontend service.
   type: NodePort
   ports:
-  - port: 80 # the port that this service should serve on
-    targetPort: 3000 # the port that this service should serve on
+  - port: 80 # the port that the NodePort should serve on
+    targetPort: 3000 # the port that the service is serving on
+    nodePort: 32000
   selector:
     app: tweeter
     tier: frontend
@@ -33,14 +34,22 @@ spec:
     spec:
       containers:
       - name: tweeter
-        image: aisrael/tweeter:0.1
+        image: aisrael/tweeter
         ports:
         - containerPort: 3000
         env:
         - name: RAILS_LOG_TO_STDOUT
           value: "true"
+        - name: REDIS_HOST_NAME
+          value: tweeter-redis-redis
         - name: SECRET_KEY_BASE
           valueFrom:
             secretKeyRef:
               name: tweeter-secrets
               key: rails-secret-key-base
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 3000
+          initialDelaySeconds: 10
+          periodSeconds: 61
