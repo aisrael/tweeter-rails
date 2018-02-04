@@ -21,6 +21,13 @@ helm init
 
 ## Deployment
 
+Create the `tweeter` namespace
+
+```
+kubectl create namespace tweeter
+kubectl config set-context $(kubectl config current-context) --namespace tweeter
+```
+
 ### Services
 
 #### Deploy MongoDB

@@ -28,3 +28,23 @@ spec:
       # - name: data
       #   persistentVolumeClaim:
       #     claimName: tweeter-mongodb-mongodb
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: tweeter
+  name: tweeter-mongodb-mongodb
+  labels:
+    app: tweeter
+    db: mongo
+spec:
+  type: ClusterIP
+  ports:
+  - port: 6379 # the port that the NodePort should serve on
+    targetPort: 6379 # the port that the service is serving on
+  selector:
+    app: tweeter
+    db: mongo
+  ports:
+    - name: mongodb
+      port: 27017
